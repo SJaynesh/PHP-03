@@ -7,13 +7,25 @@ class Config
     private $PASSWORD = "";
     private $DB_NAME = "php-03";
 
+    private $conn;
+
     public function initDB()
     {
         // return boolean value
-        $res = mysqli_connect($this->HOST, $this->USERNAME, $this->PASSWORD, $this->DB_NAME);
+        $this->conn = mysqli_connect($this->HOST, $this->USERNAME, $this->PASSWORD, $this->DB_NAME);
 
-        return $res;
+        return $this->conn;
     }
+
+    public function insertStudent($name, $age, $course)
+    {
+        $this->initDB();
+
+        $query = "INSERT INTO students (name, age, course) VALUES ('$name', $age, '$course');";
+
+        return mysqli_query($this->conn, $query); // retrun boolean value (true/false) 
+    }
+
 }
 
 ?>

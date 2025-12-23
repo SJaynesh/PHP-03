@@ -14,13 +14,13 @@ if ($res) {
 
 echo "<br><br>";
 
-$num = null;
+// $num = null;
 
-if (isset($num)) {
-    echo "This variable is set...";
-} else {
-    echo "This variable is not set...";
-}
+// if (isset($num)) {
+//     echo "This variable is set...";
+// } else {
+//     echo "This variable is not set...";
+// }
 
 // superglobal variable
 // $_GET
@@ -35,6 +35,15 @@ if (isset($_REQUEST['btn_submit'])) {
     echo "<br>Name : $name <br>";
     echo "Age : $age <br>";
     echo "Course : $course <br>";
+
+    $resStud = $config->insertStudent($name, $age, $course);
+
+    if ($resStud) {
+        echo "Student inserted successfully...";
+        header("Location: dashboard.php");
+    } else {
+        echo "Student insertion failed...";
+    }
 }
 
 ?>
@@ -44,37 +53,45 @@ if (isset($_REQUEST['btn_submit'])) {
 
 <head>
     <title>Student Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body>
 
     <!-- <a href="index.php">Home</a> | <a href="success.php">Success Page</a> -->
 
-    <center>
-        <h1>Add Student</h1>
 
-        <form method="post">
-            <label>Name</label>
-            <input type="text" name="name" required>
+    <div class="container mt-5">
+        <div class="col-4">
+            <h1>Add Student</h1>
 
-            <br>
-            <br>
+            <form method="post" class="pt-2">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" required>
 
-            <label>Age</label>
-            <input type="number" name="age" required>
+                <br>
+                <br>
 
-            <br>
-            <br>
+                <label>Age</label>
+                <input type="number" name="age" class="form-control" required>
 
-            <label>Course</label>
-            <input type="text" name="course" required>
+                <br>
+                <br>
 
-            <br>
-            <br>
+                <label>Course</label>
+                <input type="text" name="course" class="form-control" required>
 
-            <button name="btn_submit">Add Student</button>
-        </form>
-    </center>
+                <br>
+                <br>
+
+                <button name="btn_submit" class="btn btn-primary">Add Student</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

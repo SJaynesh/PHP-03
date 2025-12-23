@@ -12,55 +12,69 @@ if ($res) {
     echo "Database is not connected....";
 }
 
-// Class : Collection of Data Members and Member Function.
-// Class : Blueprint of object.
+echo "<br><br>";
 
-// Data Members == Attributes == Variables
-// Member Function == Methods == UDF (User Defiend Function)
+$num = null;
 
-// Object : Instance of class.
-
-class Student
-{
-    // Attributes 
-    private $rollNo;
-    private $name;
-    private $age;
-    private $course;
-
-    // Setter
-    public function setStudData($rollNo, $name, $age, $course)
-    {
-        $this->rollNo = $rollNo;
-        $this->name = $name;
-        $this->age = $age;
-        $this->course = $course;
-    }
-
-    // Getter
-    public function getStudData()
-    {
-        echo "<br><br>";
-        echo "Roll No : " . $this->rollNo . "<br>";
-        echo "Name : " . $this->name . "<br>";
-        echo "Age : " . $this->age . "<br>";
-        echo "Course : " . $this->course . "<br>";
-    }
+if (isset($num)) {
+    echo "This variable is set...";
+} else {
+    echo "This variable is not set...";
 }
 
+// superglobal variable
+// $_GET
+// $_POST
+// $_REQUEST
 
-// Object
-$s1 = new Student();
-$s2 = new Student();
+if (isset($_REQUEST['btn_submit'])) {
+    $name = $_POST['name'];
+    $age = $_POST['age'];
+    $course = $_POST['course'];
 
-$s1->setStudData(101, "Jeck", 20, "UI/UX");
-$s2->setStudData(102, "Lalo", 22, "Flutter");
-
-//    $s1->name = "Uday";
-
-$s1->getStudData();
-$s2->getStudData();
-
-
+    echo "<br>Name : $name <br>";
+    echo "Age : $age <br>";
+    echo "Course : $course <br>";
+}
 
 ?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Form</title>
+</head>
+
+<body>
+
+    <!-- <a href="index.php">Home</a> | <a href="success.php">Success Page</a> -->
+
+    <center>
+        <h1>Add Student</h1>
+
+        <form method="post">
+            <label>Name</label>
+            <input type="text" name="name" required>
+
+            <br>
+            <br>
+
+            <label>Age</label>
+            <input type="number" name="age" required>
+
+            <br>
+            <br>
+
+            <label>Course</label>
+            <input type="text" name="course" required>
+
+            <br>
+            <br>
+
+            <button name="btn_submit">Add Student</button>
+        </form>
+    </center>
+</body>
+
+</html>

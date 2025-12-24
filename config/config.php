@@ -26,6 +26,24 @@ class Config
         return mysqli_query($this->conn, $query); // retrun boolean value (true/false) 
     }
 
+    public function fetchAllStudents()
+    {
+        $this->initDB();
+
+        $query = "SELECT * FROM students";
+
+        return mysqli_query($this->conn, $query); //  return object for mysqli_result class
+    }
+
+    public function deleteStudent($id)
+    {
+        $this->initDB();
+
+        $query = "DELETE FROM students WHERE id=$id";
+
+        return mysqli_query($this->conn, $query); // return bool.
+    }
+
 }
 
 ?>

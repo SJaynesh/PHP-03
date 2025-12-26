@@ -44,6 +44,24 @@ class Config
         return mysqli_query($this->conn, $query); // return bool.
     }
 
+    public function fetchSingleStudent($id)
+    {
+        $this->initDB();
+
+        $query = "SELECT * FROM students WHERE id=$id";
+
+        return mysqli_query($this->conn, $query); //  return object for mysqli_result class
+    }
+
+    public function updateStudent($name, $age, $course, $id)
+    {
+        $this->initDB();
+
+        $query = "UPDATE students SET name='$name', age=$age, course='$course' WHERE id=$id";
+
+        return mysqli_query($this->conn, $query); // return bool
+    }
+
 }
 
 ?>

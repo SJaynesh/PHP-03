@@ -39,9 +39,17 @@ class Config
     {
         $this->initDB();
 
-        $query = "DELETE FROM students WHERE id=$id";
+        $result = $this->fetchSingleStudent($id);
 
-        return mysqli_query($this->conn, $query); // return bool.
+        $single_student = mysqli_fetch_assoc($result);
+
+        if ($single_student) {
+            $query = "DELETE FROM students WHERE id=$id";
+
+            return mysqli_query($this->conn, $query); // return bool.
+        } else {
+            return false;
+        }
     }
 
     public function fetchSingleStudent($id)

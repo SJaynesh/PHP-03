@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     http_response_code(response_code: 400);
     $arr['status'] = 400;
     $arr['error'] = true;
-    $arr['msg'] = "Only for POST HTTP Request Method Allow...";
+    $arr['msg'] = "Only for POST HTTP Request Method Allowed...";
 }
 
 echo json_encode($arr);
 
-// Array => JSON => json encode
-// JSON => MAP / List of MAP (json decode)
+// Array => JSON => json encode => To convert Associative Array to JSON Data
+// JSON => MAP / List of MAP => json decode => JSON Data to Associative Array
 
 ?>

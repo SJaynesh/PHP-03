@@ -6,8 +6,8 @@ class Config
     private $USERNAME = "root";
     private $PASSWORD = "";
     private $DB_NAME = "php-03";
-
     private $conn;
+    private $STUDENT_TABLE = "students";
 
     public function initDB()
     {
@@ -21,7 +21,7 @@ class Config
     {
         $this->initDB();
 
-        $query = "INSERT INTO students (name, age, course) VALUES ('$name', $age, '$course');";
+        $query = "INSERT INTO $this->STUDENT_TABLE (name, age, course) VALUES ('$name', $age, '$course');";
 
         return mysqli_query($this->conn, $query); // retrun boolean value (true/false) 
     }
@@ -30,7 +30,7 @@ class Config
     {
         $this->initDB();
 
-        $query = "SELECT * FROM students";
+        $query = "SELECT * FROM $this->STUDENT_TABLE";
 
         return mysqli_query($this->conn, $query); //  return object for mysqli_result class
     }
@@ -44,7 +44,7 @@ class Config
         $single_student = mysqli_fetch_assoc($result);
 
         if ($single_student) {
-            $query = "DELETE FROM students WHERE id=$id";
+            $query = "DELETE FROM $this->STUDENT_TABLE WHERE id=$id";
 
             return mysqli_query($this->conn, $query); // return bool.
         } else {
@@ -56,7 +56,7 @@ class Config
     {
         $this->initDB();
 
-        $query = "SELECT * FROM students WHERE id=$id";
+        $query = "SELECT * FROM $this->STUDENT_TABLE WHERE id=$id";
 
         return mysqli_query($this->conn, $query); //  return object for mysqli_result class
     }
@@ -65,9 +65,17 @@ class Config
     {
         $this->initDB();
 
-        $query = "UPDATE students SET name='$name', age=$age, course='$course' WHERE id=$id";
+        $result = $this->fetchSingleStudent($id);
 
-        return mysqli_query($this->conn, $query); // return bool
+        $single_student = mysqli_fetch_assoc($result);
+
+        if ($single_student) {
+            $query = "UPDATE $this->STUDENT_TABLE SET name='$name', age=$age, course='$course' WHERE id=$id";
+
+            return mysqli_query($this->conn, $query); // return bool
+        } else {
+            return false;
+        }
     }
 
 }

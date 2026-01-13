@@ -13,6 +13,7 @@ class Config
     private $USERS_TABLE = "users";
     private $DEPARTMENT_TABLE = "department";
     private $MEMBER_TABLE = "members";
+    private $MEDIA_TABLE = "media";
 
     public function initDB()
     {
@@ -134,6 +135,53 @@ class Config
         $query = "INSERT INTO $this->MEMBER_TABLE (name, department_id) VALUES ('$name', $id);";
 
         return mysqli_query($this->conn, $query); // retrun boolean value (true/false) 
+    }
+
+    public function insertMedia($name)
+    {
+        $this->initDB();
+
+        $query = "INSERT INTO $this->MEDIA_TABLE (name) VALUES ('$name');";
+
+        return mysqli_query($this->conn, $query); // retrun boolean value (true/false) 
+    }
+
+    public function fetchSingleMedia($id)
+    {
+        $this->initDB();
+
+        $query = "SELECT * FROM $this->MEDIA_TABLE WHERE id=$id";
+
+        $media_data = mysqli_query($this->conn, $query); //  return object for mysqli_result class
+
+        $result = mysqli_fetch_assoc($media_data);
+
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteMedia($id)
+    {
+        $this->initDB();
+
+        $result = $this->fetchSingleMedia($id);
+
+        if ($result) {
+            $isDeleted = unlink("../../uploads/" . $result['name']);
+
+            if ($isDeleted) {
+                $query = "DELETE FROM $this->MEDIA_TABLE WHERE id=$id";
+
+                return mysqli_query($this->conn, $query); // return bool.
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }
 
